@@ -1,19 +1,22 @@
 import React, { FC } from "react";
+import { useDispatch } from "react-redux";
+import { Product } from "../../common/interfaces/product";
+import { addCartItem } from "../../store/cart/cartSlice";
+import { CustomButton } from "../custom-button/custom-button.component";
 import "./collection-item.styles.scss";
 
 interface CollectionItemProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
+  item: Product;
 }
 
-export const CollectionItem: FC<CollectionItemProps> = ({
-  id,
-  name,
-  price,
-  imageUrl,
-}) => {
+export const CollectionItem: FC<CollectionItemProps> = ({ item }) => {
+  const { name, price, imageUrl } = item;
+  const dispatch = useDispatch();
+
+  const addToCart = () => {
+    dispatch(addCartItem(item));
+  };
+
   return (
     <div className="collection-item">
       <div
@@ -24,6 +27,9 @@ export const CollectionItem: FC<CollectionItemProps> = ({
         <span className="name">{name}</span>
         <span className="price">${price}</span>
       </div>
+      <CustomButton inverted onClick={addToCart}>
+        Add to cart
+      </CustomButton>
     </div>
   );
 };
