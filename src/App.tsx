@@ -3,19 +3,39 @@ import "./App.css";
 import { Auth, Home, Shop } from "./pages";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Header } from "./components";
-import { auth } from "./common/firebase/firebase.utils";
+import { auth, createUserProfile } from "./common/firebase/firebase.utils";
 import { User } from "./common/interfaces/user";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user as User);
+    let userRefUnsubscribe: any = null;
+    const authStateUnsubscribe = auth.onAuthStateChanged(async (authUser) => {
+      if (!!userRefUnsubscribe) {
+        userRefUnsubscribe();
+        userRefUnsubscribe = null;
+      }
+
+      if (authUser) {
+        const userRef = await createUserProfile(authUser as User);
+
+        userRefUnsubscribe = userRef?.onSnapshot((snapshot) => {
+          setCurrentUser({
+            uid: snapshot.id,
+            ...snapshot.data(),
+          } as User);
+        });
+      } else {
+        setCurrentUser(null);
+      }
     });
 
     return () => {
-      unsubscribe();
+      if (!!userRefUnsubscribe) {
+        userRefUnsubscribe();
+      }
+      authStateUnsubscribe();
     };
   }, []);
 
