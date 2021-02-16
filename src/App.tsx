@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Auth, Home, Shop } from "./pages";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { Header } from "./components";
 import { auth, createUserProfile } from "./common/firebase/firebase.utils";
 import { User } from "./common/interfaces/user";
-import { useDispatch } from "react-redux";
-import { setCurrentUser } from "./store/user/user.reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUser, setCurrentUser } from "./store/user/user.reducer";
 
 function App() {
   const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
     let userRefUnsubscribe: any = null;
@@ -51,7 +57,9 @@ function App() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/shop" exact component={Shop} />
-        <Route path="/auth" exact component={Auth} />
+        <Route path="/auth" exact>
+          {currentUser ? <Redirect to="/" /> : <Auth />}
+        </Route>
       </Switch>
     </Router>
   );
