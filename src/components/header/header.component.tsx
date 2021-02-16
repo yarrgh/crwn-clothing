@@ -1,14 +1,17 @@
-import React, { FC } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./header.styles.scss";
 import logo from "../../assets/crown.svg";
-import { User } from "../../common/interfaces/user";
 import { auth } from "../../common/firebase/firebase.utils";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.reducer";
+import { CartIcon } from "../cart-icon/cart-icon.component";
+import { CartDropdown } from "../cart-dropdown/cart-dropdown.component";
+import { selectCartHidden } from "../../store/cart/cartSlice";
 
 export const Header = () => {
   const currentUser = useSelector(selectCurrentUser);
+  const cartHidden = useSelector(selectCartHidden);
 
   return (
     <div className="header">
@@ -31,7 +34,9 @@ export const Header = () => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {!cartHidden && <CartDropdown />}
     </div>
   );
 };
