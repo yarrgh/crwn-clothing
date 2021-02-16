@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem } from "../../common/interfaces/cart-item";
+import { ICartItem } from "../../common/interfaces/cart-item";
 import { Product } from "../../common/interfaces/product";
 import { addItemToCart } from "./cart.utils";
 
 interface CartState {
   hidden: boolean;
-  cartItems: CartItem[];
+  cartItems: ICartItem[];
 }
 
 const initialState: CartState = {

@@ -1,7 +1,7 @@
-import { CartItem } from "../../common/interfaces/cart-item";
+import { ICartItem } from "../../common/interfaces/cart-item";
 import { Product } from "../../common/interfaces/product";
 
-export const addItemToCart = (cartItems: CartItem[], product: Product) => {
+export const addItemToCart = (cartItems: ICartItem[], product: Product) => {
   const existingItem = cartItems.find((cartItem) => cartItem.id === product.id);
 
   if (existingItem) {

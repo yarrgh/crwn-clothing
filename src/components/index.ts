@@ -5,3 +5,4 @@ export * from "./collection-item/collection-item.component";
 export * from "./header/header.component";
 export * from "./sign-in/sign-in.component";
 export * from "./form-input/form-input.component";
+export * from "./cart-item/cart-item.component";
