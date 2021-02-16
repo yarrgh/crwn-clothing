@@ -4,12 +4,12 @@ import "./header.styles.scss";
 import logo from "../../assets/crown.svg";
 import { User } from "../../common/interfaces/user";
 import { auth } from "../../common/firebase/firebase.utils";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.reducer";
 
-interface HeaderProps {
-  currentUser: User;
-}
+export const Header = () => {
+  const currentUser = useSelector(selectCurrentUser);
 
-export const Header: FC<HeaderProps> = ({ currentUser }) => {
   return (
     <div className="header">
       <Link to="/" className="logo-container">

@@ -5,9 +5,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Header } from "./components";
 import { auth, createUserProfile } from "./common/firebase/firebase.utils";
 import { User } from "./common/interfaces/user";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./store/user/user.reducer";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let userRefUnsubscribe: any = null;
@@ -21,13 +23,17 @@ function App() {
         const userRef = await createUserProfile(authUser as User);
 
         userRefUnsubscribe = userRef?.onSnapshot((snapshot) => {
-          setCurrentUser({
-            uid: snapshot.id,
-            ...snapshot.data(),
-          } as User);
+          const data = snapshot.data() as User;
+          dispatch(
+            setCurrentUser({
+              uid: snapshot.id,
+              displayName: data.displayName,
+              email: data.email,
+            } as User)
+          );
         });
       } else {
-        setCurrentUser(null);
+        dispatch(setCurrentUser(null));
       }
     });
 
@@ -41,7 +47,7 @@ function App() {
 
   return (
     <Router>
-      <Header currentUser={currentUser} />
+      <Header />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/shop" exact component={Shop} />
