@@ -16,7 +16,7 @@ import { ShopPage } from "./pages/shop/shop.component";
 import { Auth } from "./pages/auth/auth.component";
 import { CheckoutPage } from "./pages/checkout/checkout.component";
 
-function App() {
+export function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
 
@@ -68,5 +68,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;
