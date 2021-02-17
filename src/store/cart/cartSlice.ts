@@ -1,7 +1,11 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICartItem } from "../../common/interfaces/cart-item";
 import { Product } from "../../common/interfaces/product";
-import { addItemToCart } from "./cart.utils";
+import {
+  addItemToCart,
+  clearItemFromCart,
+  removeItemFromCart,
+} from "./cart.utils";
 
 interface CartState {
   hidden: boolean;
@@ -23,10 +27,21 @@ export const cartSlice = createSlice({
     addCartItem: (state, action: PayloadAction<Product>) => {
       state.cartItems = addItemToCart(state.cartItems, action.payload);
     },
+    removeCartItem: (state, action: PayloadAction<ICartItem>) => {
+      state.cartItems = removeItemFromCart(state.cartItems, action.payload);
+    },
+    clearCartItem: (state, action: PayloadAction<ICartItem>) => {
+      state.cartItems = clearItemFromCart(state.cartItems, action.payload);
+    },
   },
 });
 
-export const { toggleCartHidden, addCartItem } = cartSlice.actions;
+export const {
+  toggleCartHidden,
+  addCartItem,
+  removeCartItem,
+  clearCartItem,
+} = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
 
 const selectCart = (state: any) => state.cart as CartState;
