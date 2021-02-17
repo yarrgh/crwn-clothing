@@ -1,20 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { CollectionPreview } from "../../components";
-import { selectCollections } from "../../store/shop/shopSlice";
+import { Route, useRouteMatch } from "react-router-dom";
+import { CollectionsOverview } from "../../components/collections-overview/collections-overview.component";
+import { CollectionPage } from "../collection/collection.component";
 
-export const Shop = () => {
-  const collections = useSelector(selectCollections);
+export const ShopPage = () => {
+  const match = useRouteMatch();
 
   return (
     <div className="shop-page">
-      {collections.map((collection) => (
-        <CollectionPreview
-          key={collection.id}
-          title={collection.title}
-          items={collection.items!}
-        />
-      ))}
+      <Route exact path={match.path} component={CollectionsOverview} />
+      <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
     </div>
   );
 };

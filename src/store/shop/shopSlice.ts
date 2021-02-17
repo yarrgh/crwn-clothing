@@ -1,9 +1,9 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { collectionData } from "../../common/data";
-import { IDirectory } from "../../common/interfaces/directory";
+import { collectionData, ICollectionData } from "../../common/data";
+import memoize from "lodash.memoize";
 
 interface ShopState {
-  collections: IDirectory[];
+  collections: ICollectionData;
 }
 
 const initialState: ShopState = {
@@ -23,4 +23,16 @@ const selectShopState = (state: any) => state.shop as ShopState;
 export const selectCollections = createSelector(
   [selectShopState],
   (state) => state.collections
+);
+
+export const selectCollectionsForPreview = createSelector(
+  [selectCollections],
+  (collections) => Object.keys(collections).map((key) => collections[key])
+);
+
+export const selectCollection = memoize((collectionUrlParam: string) =>
+  createSelector(
+    [selectCollections],
+    (collections) => collections[collectionUrlParam]
+  )
 );

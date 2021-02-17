@@ -1,11 +1,15 @@
 import { IDirectory } from "./interfaces/directory";
 
-export const collectionData: IDirectory[] = [
-  {
+export interface ICollectionData {
+  [key: string]: IDirectory;
+}
+
+export const collectionData: ICollectionData = {
+  hats: {
     title: "Hats",
     imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
     id: 1,
-    routeName: "hats",
+    linkUrl: "shop/hats",
     items: [
       {
         id: 1,
@@ -63,11 +67,11 @@ export const collectionData: IDirectory[] = [
       },
     ],
   },
-  {
+  jackets: {
     title: "Jackets",
     imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
     id: 2,
-    routeName: "jackets",
+    linkUrl: "shop/jackets",
     items: [
       {
         id: 18,
@@ -101,11 +105,11 @@ export const collectionData: IDirectory[] = [
       },
     ],
   },
-  {
+  sneakers: {
     title: "Sneakers",
     imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
     id: 3,
-    routeName: "sneakers",
+    linkUrl: "shop/sneakers",
     items: [
       {
         id: 10,
@@ -157,12 +161,12 @@ export const collectionData: IDirectory[] = [
       },
     ],
   },
-  {
+  womens: {
     title: "Womens",
     imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
     size: "large",
     id: 4,
-    routeName: "womens",
+    linkUrl: "shop/womens",
     items: [
       {
         id: 23,
@@ -208,12 +212,12 @@ export const collectionData: IDirectory[] = [
       },
     ],
   },
-  {
+  mens: {
     title: "Mens",
     imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
     size: "large",
     id: 5,
-    routeName: "mens",
+    linkUrl: "shop/mens",
     items: [
       {
         id: 30,
@@ -253,4 +257,4 @@ export const collectionData: IDirectory[] = [
       },
     ],
   },
-];
+};

@@ -4,7 +4,7 @@ export interface IDirectory {
   title: string;
   imageUrl: string;
   id: number;
-  routeName: string;
+  linkUrl: string;
   size?: "small" | "large";
   items?: Product[];
 }

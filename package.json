@@ -8,9 +8,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
-    "@types/react-redux": "^7.1.16",
-    "@types/redux": "^3.6.0",
-    "@types/redux-logger": "^3.0.8",
+    "lodash.memoize": "^4.1.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.2",
@@ -22,10 +20,14 @@
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
+    "@types/lodash.memoize": "^4.1.6",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
     "@types/redux-persist": "^4.3.1",
+    "@types/redux": "^3.6.0",
+    "@types/redux-logger": "^3.0.8",
     "@types/reselect": "^2.2.0",
     "@types/styled-components": "^5.1.7",
     "@vitejs/plugin-react-refresh": "^1.1.0",
