@@ -3,8 +3,7 @@ import { auth, createUserProfile } from "../../common/firebase/firebase.utils";
 import { User } from "../../common/interfaces/user";
 import { CustomButton } from "../custom-button/custom-button.component";
 import { FormInput } from "../form-input/form-input.component";
-
-import "./sign-up.styles.scss";
+import { SignUpContainer, Title } from "./sign-up.styles";
 
 export const SignUp = () => {
   const [displayName, setDisplayName] = useState("");
@@ -57,8 +56,8 @@ export const SignUp = () => {
   };
 
   return (
-    <div className="sign-up">
-      <h2 className="title">I do not have an account</h2>
+    <SignUpContainer>
+      <Title>I do not have an account</Title>
       <span>Sign up with your email and password</span>
       <form className="sign-up-form" onSubmit={handleSubmit}>
         <FormInput
@@ -95,6 +94,6 @@ export const SignUp = () => {
         />
         <CustomButton type="submit">Sign Up</CustomButton>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };

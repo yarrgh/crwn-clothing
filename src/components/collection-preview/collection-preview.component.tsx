@@ -1,7 +1,11 @@
 import React from "react";
 import { Product } from "../../common/interfaces/product";
 import { CollectionItem } from "../collection-item/collection-item.component";
-import "./collection-preview.styles.scss";
+import {
+  CollectionPreviewContainer,
+  Preview,
+  Title,
+} from "./collection-preview.styles";
 
 interface CollectionPreviewProps {
   title: string;
@@ -13,15 +17,15 @@ export const CollectionPreview: React.FC<CollectionPreviewProps> = ({
   items,
 }) => {
   return (
-    <div className="collection-preview">
-      <h1 className="title">{title.toUpperCase()}</h1>
-      <div className="preview">
+    <CollectionPreviewContainer>
+      <Title>{title.toUpperCase()}</Title>
+      <Preview>
         {items
-          .filter((item, idx) => idx < 4)
+          .filter((_, idx) => idx < 4)
           .map((item) => (
             <CollectionItem key={item.id} item={item} />
           ))}
-      </div>
-    </div>
+      </Preview>
+    </CollectionPreviewContainer>
   );
 };

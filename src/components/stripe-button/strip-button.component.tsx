@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import StripeCheckout, { Token } from "react-stripe-checkout";
 
-interface StripeButtonProps {
+export interface StripeButtonProps {
   price: number;
 }
 

@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes, FC } from "react";
-import "./custom-button.styles.scss";
+import { CustomButtonContainer } from "./custom-button.styles";
 
 interface CustomButtonProps {
   isGoogleSignIn?: boolean;
@@ -8,15 +8,6 @@ interface CustomButtonProps {
 
 export const CustomButton: FC<
   ButtonHTMLAttributes<HTMLButtonElement> & CustomButtonProps
-> = ({ children, isGoogleSignIn, inverted, ...otherProps }) => {
-  return (
-    <button
-      className={`custom-button ${isGoogleSignIn && "google-sign-in"} ${
-        inverted && "inverted"
-      }`}
-      {...otherProps}
-    >
-      {children}
-    </button>
-  );
+> = ({ children, ...props }) => {
+  return <CustomButtonContainer {...props}>{children}</CustomButtonContainer>;
 };

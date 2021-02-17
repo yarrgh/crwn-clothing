@@ -1,13 +1,13 @@
 import React from "react";
 import { SignIn } from "../../components/sign-in/sign-in.component";
 import { SignUp } from "../../components/sign-up/sign-up.component";
-import "./auth.styles.scss";
+import { AuthPageContainer } from "./auth.styles";
 
 export const Auth = () => {
   return (
-    <div className="auth-page">
+    <AuthPageContainer>
       <SignIn />
       <SignUp />
-    </div>
+    </AuthPageContainer>
   );
 };

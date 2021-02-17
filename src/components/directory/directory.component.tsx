@@ -2,22 +2,22 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectDirectories } from "../../store/directory/directorySlice";
 import { MenuItem } from "../menu-item/menu-item.component";
-import "./directory.styles.scss";
+import { DirectoryContainer } from "./directory.styles";
 
 export const Directory = () => {
   const sections = useSelector(selectDirectories);
 
   return (
-    <div className="directory-menu">
+    <DirectoryContainer>
       {sections.map((section) => (
         <MenuItem
           key={section.id}
           title={section.title}
           imageUrl={section.imageUrl}
-          size={section.size}
+          large={section.size == "large"}
           linkUrl={section.linkUrl}
         />
       ))}
-    </div>
+    </DirectoryContainer>
   );
 };

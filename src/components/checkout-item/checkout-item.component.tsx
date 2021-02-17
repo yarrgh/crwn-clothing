@@ -6,7 +6,16 @@ import {
   clearCartItem,
   removeCartItem,
 } from "../../store/cart/cartSlice";
-import "./checkout-item.styles.scss";
+import {
+  CheckoutItemContainer,
+  ImageContainer,
+  ItemArrow,
+  ItemDetail,
+  ItemImage,
+  ItemQuantity,
+  ItemQuantityValue,
+  RemoveButton,
+} from "./checkout-item.styles";
 
 interface CheckoutItemProps {
   item: ICartItem;
@@ -29,24 +38,18 @@ export const CheckoutItem: FC<CheckoutItemProps> = ({ item }) => {
   };
 
   return (
-    <div className="checkout-item">
-      <div className="image-container">
-        <img src={imageUrl} alt={name} />
-      </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
-        <div className="arrow" onClick={removeItem}>
-          &#10094;
-        </div>
-        <span className="value">{quantity}</span>
-        <div className="arrow" onClick={addItem}>
-          &#10095;
-        </div>
-      </span>
-      <span className="price">${price}</span>
-      <div className="remove-button" onClick={clearItem}>
-        &#10005;
-      </div>
-    </div>
+    <CheckoutItemContainer>
+      <ImageContainer>
+        <ItemImage src={imageUrl} alt={name} />
+      </ImageContainer>
+      <ItemDetail>{name}</ItemDetail>
+      <ItemQuantity>
+        <ItemArrow onClick={removeItem}>&#10094;</ItemArrow>
+        <ItemQuantityValue>{quantity}</ItemQuantityValue>
+        <ItemArrow onClick={addItem}>&#10095;</ItemArrow>
+      </ItemQuantity>
+      <ItemDetail>${price}</ItemDetail>
+      <RemoveButton onClick={clearItem}>&#10005;</RemoveButton>
+    </CheckoutItemContainer>
   );
 };

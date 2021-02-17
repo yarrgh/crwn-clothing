@@ -1,45 +1,51 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { CheckoutItem } from "../../components/checkout-item/checkout-item.component";
-import { StripeButton } from "../../components/stripe-button/strip-button.component";
 import { selectCartItems, selectCartTotal } from "../../store/cart/cartSlice";
-import "./checkout.styles.scss";
+import {
+  CheckoutHeader,
+  CheckoutPageContainer,
+  CheckoutTestWarning,
+  CheckoutTotal,
+  HeaderBlock,
+  CheckoutButton,
+} from "./checkout.styles";
 
 export const CheckoutPage = () => {
   const cartItems = useSelector(selectCartItems);
   const total = useSelector(selectCartTotal);
 
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutPageContainer>
+      <CheckoutHeader>
+        <HeaderBlock>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Remove</span>
-        </div>
-      </div>
+        </HeaderBlock>
+      </CheckoutHeader>
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} item={cartItem} />
       ))}
-      <div className="total">
+      <CheckoutTotal>
         <span>TOTAL: ${total}</span>
-      </div>
-      <div className="test-warning">
+      </CheckoutTotal>
+      <CheckoutTestWarning>
         *Please use the following test credit card for payments*
         <br />
         4242 4242 4242 4242 - EXP: 01/25 - CVV: 123
-      </div>
-      <StripeButton price={total} />
-    </div>
+      </CheckoutTestWarning>
+      <CheckoutButton price={total} />
+    </CheckoutPageContainer>
   );
 };

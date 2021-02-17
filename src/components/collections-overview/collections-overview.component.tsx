@@ -2,13 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectCollectionsForPreview } from "../../store/shop/shopSlice";
 import { CollectionPreview } from "../collection-preview/collection-preview.component";
-import "./collections-overview.styles.scss";
+import { CollectionsOverviewContainer } from "./collections-overview.styles";
 
 export const CollectionsOverview = () => {
   const collections = useSelector(selectCollectionsForPreview);
 
   return (
-    <div className="collections-overview">
+    <CollectionsOverviewContainer>
       {collections.map((collection) => (
         <CollectionPreview
           key={collection.id}
@@ -16,6 +16,6 @@ export const CollectionsOverview = () => {
           items={collection.items!}
         />
       ))}
-    </div>
+    </CollectionsOverviewContainer>
   );
 };

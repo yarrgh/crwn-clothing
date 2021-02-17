@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { auth, signInWithGoogle } from "../../common/firebase/firebase.utils";
 import { CustomButton } from "../custom-button/custom-button.component";
 import { FormInput } from "../form-input/form-input.component";
-import "./sign-in.styles.scss";
+import { Buttons, SignInContainer, Title } from "./sign-in.styles";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -34,8 +34,8 @@ export const SignIn = () => {
   };
 
   return (
-    <div className="sign-in">
-      <h2 className="title">I already have an account</h2>
+    <SignInContainer>
+      <Title>I already have an account</Title>
       <span>Sign in with your email and password</span>
 
       <form onSubmit={handleSubmit}>
@@ -58,13 +58,13 @@ export const SignIn = () => {
           required
         />
 
-        <div className="buttons">
+        <Buttons>
           <CustomButton type="submit">Sign In</CustomButton>
           <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>
             Sign In with Google
           </CustomButton>
-        </div>
+        </Buttons>
       </form>
-    </div>
+    </SignInContainer>
   );
 };

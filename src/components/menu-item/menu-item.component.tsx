@@ -1,36 +1,39 @@
 import React from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import "./menu-item.styles.scss";
+import {
+  BackgroundImage,
+  MenuItemContainer,
+  MenuItemContent,
+  Subtitle,
+  Title,
+} from "./menu-item.styles";
 
 interface MenuItemProps {
   title: string;
   imageUrl: string;
   linkUrl: string;
-  size?: "small" | "large";
+  large?: boolean;
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({
   title,
   imageUrl,
   linkUrl,
-  size,
+  large,
 }) => {
   const history = useHistory();
   const match = useRouteMatch();
 
   return (
-    <div
-      className={`menu-item ${size || ""}`}
+    <MenuItemContainer
+      large={large}
       onClick={() => history.push(`${match.url}${linkUrl}`, {})}
     >
-      <div
-        className="background-image"
-        style={{ backgroundImage: `url(${imageUrl})` }}
-      />
-      <div className="content">
-        <h1 className="title">{title.toUpperCase()}</h1>
-        <span className="subtitle">SHOP NOW</span>
-      </div>
-    </div>
+      <BackgroundImage imageUrl={imageUrl} />
+      <MenuItemContent>
+        <Title>{title.toUpperCase()}</Title>
+        <Subtitle>SHOP NOW</Subtitle>
+      </MenuItemContent>
+    </MenuItemContainer>
   );
 };

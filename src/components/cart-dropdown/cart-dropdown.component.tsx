@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { selectCartItems, toggleCartHidden } from "../../store/cart/cartSlice";
 import { CartItem } from "../cart-item/cart-item.component";
-import { CustomButton } from "../custom-button/custom-button.component";
-import "./card-dropdown.styles.scss";
+import {
+  CartDropdownContainer,
+  CartItemContainer,
+  CheckoutButton,
+  EmptyMessage,
+} from "./cart-dropdown.styles";
 
 export const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
@@ -17,15 +21,15 @@ export const CartDropdown = () => {
   };
 
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items">
+    <CartDropdownContainer>
+      <CartItemContainer>
         {cartItems.length ? (
           cartItems.map((item) => <CartItem item={item} key={item.id} />)
         ) : (
-          <span className="empty-message">Your cart is empty</span>
+          <EmptyMessage>Your cart is empty</EmptyMessage>
         )}
-      </div>
-      <CustomButton onClick={goToCheckout}>GO TO CHECKOUT</CustomButton>
-    </div>
+      </CartItemContainer>
+      <CheckoutButton onClick={goToCheckout}>GO TO CHECKOUT</CheckoutButton>
+    </CartDropdownContainer>
   );
 };
