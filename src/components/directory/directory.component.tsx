@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { MenuItem } from "..";
 import { selectDirectories } from "../../store/directory/directorySlice";
+import { MenuItem } from "../menu-item/menu-item.component";
 import "./directory.styles.scss";
 
 export const Directory = () => {

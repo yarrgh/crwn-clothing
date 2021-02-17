@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useRouteMatch } from "react-router-dom";
-import { CollectionItem } from "../../components";
+import { CollectionItem } from "../../components/collection-item/collection-item.component";
 import { selectCollection } from "../../store/shop/shopSlice";
 import "./collection.styles.scss";
 

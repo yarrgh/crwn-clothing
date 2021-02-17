@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { FormInput } from "..";
 import { auth, signInWithGoogle } from "../../common/firebase/firebase.utils";
 import { CustomButton } from "../custom-button/custom-button.component";
+import { FormInput } from "../form-input/form-input.component";
 import "./sign-in.styles.scss";
 
 export const SignIn = () => {

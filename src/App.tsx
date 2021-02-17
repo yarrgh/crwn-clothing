@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { Auth, CheckoutPage, Home, ShopPage } from "./pages";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-import { Header } from "./components";
 import { auth, createUserProfile } from "./common/firebase/firebase.utils";
 import { User } from "./common/interfaces/user";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser, setCurrentUser } from "./store/user/userSlice";
+import { Header } from "./components/header/header.component";
+import { Home } from "./pages/home/home.component";
+import { ShopPage } from "./pages/shop/shop.component";
+import { Auth } from "./pages/auth/auth.component";
+import { CheckoutPage } from "./pages/checkout/checkout.component";
 
 function App() {
   const dispatch = useDispatch();
