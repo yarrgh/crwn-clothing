@@ -4,7 +4,7 @@ import "./header.styles.scss";
 import logo from "../../assets/crown.svg";
 import { auth } from "../../common/firebase/firebase.utils";
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../store/user/user.reducer";
+import { selectCurrentUser } from "../../store/user/userSlice";
 import { CartIcon } from "../cart-icon/cart-icon.component";
 import { CartDropdown } from "../cart-dropdown/cart-dropdown.component";
 import { selectCartHidden } from "../../store/cart/cartSlice";

@@ -11,7 +11,7 @@ import { Header } from "./components";
 import { auth, createUserProfile } from "./common/firebase/firebase.utils";
 import { User } from "./common/interfaces/user";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser, setCurrentUser } from "./store/user/user.reducer";
+import { selectCurrentUser, setCurrentUser } from "./store/user/userSlice";
 
 function App() {
   const dispatch = useDispatch();
