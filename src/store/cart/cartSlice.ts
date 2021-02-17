@@ -29,18 +29,20 @@ export const cartSlice = createSlice({
 export const { toggleCartHidden, addCartItem } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
 
+const selectCart = (state: any) => state.cart as CartState;
+
 export const selectCartHidden = createSelector(
-  (state: any) => state.cart,
+  [selectCart],
   (cart: CartState) => cart.hidden
 );
 
 export const selectCartItems = createSelector(
-  (state: any) => state.cart,
+  [selectCart],
   (cart: CartState) => cart.cartItems
 );
 
 export const selectCartItemCount = createSelector(
-  (state: any) => state.cart,
-  (cart: CartState) =>
-    cart.cartItems.reduce((acc, item) => acc + item.quantity, 0)
+  [selectCartItems],
+  (cartItems: ICartItem[]) =>
+    cartItems.reduce((acc, item) => acc + item.quantity, 0)
 );
