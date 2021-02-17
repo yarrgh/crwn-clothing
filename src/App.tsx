@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { Auth, Home, Shop } from "./pages";
+import { Auth, CheckoutPage, Home, Shop } from "./pages";
 import {
   BrowserRouter as Router,
   Switch,
@@ -60,6 +60,7 @@ function App() {
         <Route path="/auth" exact>
           {currentUser ? <Redirect to="/" /> : <Auth />}
         </Route>
+        <Route path="/checkout" exact component={CheckoutPage} />
       </Switch>
     </Router>
   );
