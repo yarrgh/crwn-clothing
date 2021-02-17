@@ -1,6 +1,6 @@
-import { Section } from "./interfaces/section";
+import { IDirectory } from "./interfaces/directory";
 
-export const sectionsData: Section[] = [
+export const collectionData: IDirectory[] = [
   {
     title: "Hats",
     imageUrl: "https://i.ibb.co/cvpntL1/hats.png",

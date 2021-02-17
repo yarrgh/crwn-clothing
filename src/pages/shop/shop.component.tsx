@@ -1,14 +1,19 @@
-import React, { useState } from "react";
-import { sectionsData } from "../../common/data";
+import React from "react";
+import { useSelector } from "react-redux";
 import { CollectionPreview } from "../../components";
+import { selectCollections } from "../../store/shop/shopSlice";
 
 export const Shop = () => {
-  const [collections, setCollections] = useState(sectionsData);
+  const collections = useSelector(selectCollections);
 
   return (
     <div className="shop-page">
-      {collections.map(({ id, ...otherProps }) => (
-        <CollectionPreview key={id} {...otherProps} />
+      {collections.map((collection) => (
+        <CollectionPreview
+          key={collection.id}
+          title={collection.title}
+          items={collection.items!}
+        />
       ))}
     </div>
   );

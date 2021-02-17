@@ -5,7 +5,7 @@ import "./menu-item.styles.scss";
 interface MenuItemProps {
   title: string;
   imageUrl: string;
-  linkUrl: string;
+  routeName: string;
   size?: "small" | "large";
 }
 
