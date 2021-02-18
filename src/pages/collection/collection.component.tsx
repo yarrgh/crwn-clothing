@@ -22,7 +22,7 @@ export const CollectionPage = () => {
     <CollectionPageContainer>
       <CollectionTitle>{title.toUpperCase()}</CollectionTitle>
       <CollectionItemsContainer>
-        {items?.map((item) => (
+        {items?.map((item: any) => (
           <StyledItem key={item.id} item={item} />
         ))}
       </CollectionItemsContainer>
