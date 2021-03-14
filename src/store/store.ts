@@ -14,6 +14,8 @@ import { userReducer } from "./user/userSlice";
 import { cartReducer } from "./cart/cartSlice";
 import { directoryReducer } from "./directory/directorySlice";
 import { shopReducer } from "./shop/shopSlice";
+import createSagaMiddleware from "redux-saga";
+import { rootSaga } from "./rootSaga";
 
 const persistConfig = {
   key: "root",
@@ -21,6 +23,8 @@ const persistConfig = {
   version: 1,
   whitelist: ["cart"],
 };
+
+const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -33,12 +37,17 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware({
+      thunk: false,
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+    sagaMiddleware,
+  ],
 });
+
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);

@@ -37,7 +37,7 @@ export const createUserProfile = async (
     }
   }
 
-  return userRef;
+  return userRef!;
 };
 
 firebase.initializeApp(config);
@@ -79,8 +79,27 @@ export const convertCollectionsSnapshotToMap = (
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+
+export const getCurrentUser = (): Promise<User | null> => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth as User);
+    }, reject);
+  });
+};
+
+export interface DocumentData extends firebase.firestore.DocumentData {}
+
+export interface DocumentReference<T = DocumentData>
+  extends firebase.firestore.DocumentReference<T> {}
+
+export interface DocumentSnapshot<T = DocumentData>
+  extends firebase.firestore.DocumentSnapshot<T> {}
+
+export interface UserCredential extends firebase.auth.UserCredential {}
 
 export default firebase;

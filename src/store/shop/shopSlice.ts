@@ -5,10 +5,6 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import memoize from "lodash.memoize";
-import {
-  convertCollectionsSnapshotToMap,
-  firestore,
-} from "../../common/firebase/firebase.utils";
 
 interface ShopState {
   collections: { [id: string]: any } | null;
@@ -18,18 +14,8 @@ interface ShopState {
 
 const initialState: ShopState = {
   collections: null,
-  isFetching: true,
+  isFetching: false,
 };
-
-export const fetchCollections = createAsyncThunk(
-  "shop/fetchCollections",
-  async () => {
-    const collectionRef = firestore.collection("collections");
-
-    const snapshot = await collectionRef.get();
-    return convertCollectionsSnapshotToMap(snapshot);
-  }
-);
 
 export const userSlice = createSlice({
   name: "shop",
@@ -38,26 +24,25 @@ export const userSlice = createSlice({
     updateCollections(state, action: PayloadAction<any>) {
       state.collections = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchCollections.pending, (state) => {
+    fetchCollections(state) {
       state.isFetching = true;
-    });
-
-    builder.addCase(fetchCollections.fulfilled, (state, action) => {
+    },
+    fetchCollectionsSuccess(
+      state,
+      action: PayloadAction<{ [id: string]: any }>
+    ) {
       state.isFetching = false;
       state.collections = action.payload;
-    });
-
-    builder.addCase(fetchCollections.rejected, (state, action) => {
+    },
+    fetchCollectionsFailure(state, action: PayloadAction<unknown>) {
       state.isFetching = false;
       state.errorMessage = (action.payload as any).message;
-    });
+    },
   },
 });
 
 export const shopReducer = userSlice.reducer;
-export const { updateCollections } = userSlice.actions;
+export const shopActions = userSlice.actions;
 
 const selectShopState = (state: any) => state.shop as ShopState;
 
@@ -80,5 +65,5 @@ export const selectCollection = memoize((collectionUrlParam: string) =>
 
 export const selectIsFetching = createSelector(
   [selectShopState],
-  (state) => state.isFetching
+  (state) => state.isFetching || !state.collections
 );

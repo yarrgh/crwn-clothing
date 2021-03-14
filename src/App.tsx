@@ -6,10 +6,8 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { auth, createUserProfile } from "./common/firebase/firebase.utils";
-import { User } from "./common/interfaces/user";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser, setCurrentUser } from "./store/user/userSlice";
+import { selectCurrentUser, userActions } from "./store/user/userSlice";
 import { Header } from "./components/header/header.component";
 import { Home } from "./pages/home/home.component";
 import { ShopPage } from "./pages/shop/shop.component";
@@ -21,37 +19,35 @@ export function App() {
   const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
-    let userRefUnsubscribe: any = null;
-    const authStateUnsubscribe = auth.onAuthStateChanged(async (authUser) => {
-      if (!!userRefUnsubscribe) {
-        userRefUnsubscribe();
-        userRefUnsubscribe = null;
-      }
-
-      if (authUser) {
-        const userRef = await createUserProfile(authUser as User);
-
-        userRefUnsubscribe = userRef?.onSnapshot((snapshot) => {
-          const data = snapshot.data() as User;
-          dispatch(
-            setCurrentUser({
-              uid: snapshot.id,
-              displayName: data.displayName,
-              email: data.email,
-            } as User)
-          );
-        });
-      } else {
-        dispatch(setCurrentUser(null));
-      }
-    });
-
-    return () => {
-      if (!!userRefUnsubscribe) {
-        userRefUnsubscribe();
-      }
-      authStateUnsubscribe();
-    };
+    dispatch(userActions.checkUserSession());
+    // let userRefUnsubscribe: any = null;
+    // const authStateUnsubscribe = auth.onAuthStateChanged(async (authUser) => {
+    //   if (!!userRefUnsubscribe) {
+    //     userRefUnsubscribe();
+    //     userRefUnsubscribe = null;
+    //   }
+    //   if (authUser) {
+    //     const userRef = await createUserProfile(authUser as User);
+    //     userRefUnsubscribe = userRef?.onSnapshot((snapshot) => {
+    //       const data = snapshot.data() as User;
+    //       dispatch(
+    //         setCurrentUser({
+    //           uid: snapshot.id,
+    //           displayName: data.displayName,
+    //           email: data.email,
+    //         } as User)
+    //       );
+    //     });
+    //   } else {
+    //     dispatch(setCurrentUser(null));
+    //   }
+    // });
+    // return () => {
+    //   if (!!userRefUnsubscribe) {
+    //     userRefUnsubscribe();
+    //   }
+    //   authStateUnsubscribe();
+    // };
   }, []);
 
   return (

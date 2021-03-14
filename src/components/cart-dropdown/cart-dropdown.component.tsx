@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { selectCartItems, toggleCartHidden } from "../../store/cart/cartSlice";
+import { selectCartItems, cartActions } from "../../store/cart/cartSlice";
 import { CartItem } from "../cart-item/cart-item.component";
 import {
   CartDropdownContainer,
@@ -17,7 +17,7 @@ export const CartDropdown = () => {
 
   const goToCheckout = () => {
     history.push("/checkout");
-    dispatch(toggleCartHidden());
+    dispatch(cartActions.toggleCartHidden());
   };
 
   return (

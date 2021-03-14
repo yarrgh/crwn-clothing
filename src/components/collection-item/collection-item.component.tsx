@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 import { Product } from "../../common/interfaces/product";
-import { addCartItem } from "../../store/cart/cartSlice";
+import { cartActions } from "../../store/cart/cartSlice";
 import {
   AddToCartButton,
   CollectionFooter,
@@ -20,7 +20,7 @@ export const CollectionItem: FC<CollectionItemProps> = ({ item }) => {
   const dispatch = useDispatch();
 
   const addToCart = () => {
-    dispatch(addCartItem(item));
+    dispatch(cartActions.addCartItem(item));
   };
 
   return (

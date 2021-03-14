@@ -1,11 +1,7 @@
 import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 import { ICartItem } from "../../common/interfaces/cart-item";
-import {
-  addCartItem,
-  clearCartItem,
-  removeCartItem,
-} from "../../store/cart/cartSlice";
+import { cartActions } from "../../store/cart/cartSlice";
 import {
   CheckoutItemContainer,
   ImageContainer,
@@ -26,15 +22,15 @@ export const CheckoutItem: FC<CheckoutItemProps> = ({ item }) => {
   const dispatch = useDispatch();
 
   const clearItem = () => {
-    dispatch(clearCartItem(item));
+    dispatch(cartActions.clearCartItem(item));
   };
 
   const addItem = () => {
-    dispatch(addCartItem(item));
+    dispatch(cartActions.addCartItem(item));
   };
 
   const removeItem = () => {
-    dispatch(removeCartItem(item));
+    dispatch(cartActions.removeCartItem(item));
   };
 
   return (

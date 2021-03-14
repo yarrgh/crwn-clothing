@@ -1,31 +1,32 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import { CollectionsOverview } from "../../components/collections-overview/collections-overview.component";
-import { fetchCollections, selectIsFetching } from "../../store/shop/shopSlice";
-import { CollectionPage } from "../collection/collection.component";
-import { Spinner } from "../../components/spinner/spinner.component";
+import { shopActions } from "../../store/shop/shopSlice";
+import CollectionsOverViewContainer from "../../components/collections-overview/collections-overview.container";
+import CollectionContainer from "../collection/collection.container";
 
 export const ShopPage = () => {
   const match = useRouteMatch();
   const dispatch = useDispatch();
-  const isFetching = useSelector(selectIsFetching);
 
   useEffect(() => {
-    dispatch(fetchCollections());
+    // dispatch(fetchCollections());
+    dispatch(shopActions.fetchCollections());
   }, []);
 
   return (
     <div className="shop-page">
-      <Spinner isLoading={isFetching}>
-        <Switch>
-          <Route exact path={match.path} component={CollectionsOverview} />
-          <Route
-            path={`${match.path}/:collectionId`}
-            component={CollectionPage}
-          />
-        </Switch>
-      </Spinner>
+      <Switch>
+        <Route
+          exact
+          path={match.path}
+          component={CollectionsOverViewContainer}
+        />
+        <Route
+          path={`${match.path}/:collectionId`}
+          component={CollectionContainer}
+        />
+      </Switch>
     </div>
   );
 };
