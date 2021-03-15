@@ -20,34 +20,6 @@ export function App() {
 
   useEffect(() => {
     dispatch(userActions.checkUserSession());
-    // let userRefUnsubscribe: any = null;
-    // const authStateUnsubscribe = auth.onAuthStateChanged(async (authUser) => {
-    //   if (!!userRefUnsubscribe) {
-    //     userRefUnsubscribe();
-    //     userRefUnsubscribe = null;
-    //   }
-    //   if (authUser) {
-    //     const userRef = await createUserProfile(authUser as User);
-    //     userRefUnsubscribe = userRef?.onSnapshot((snapshot) => {
-    //       const data = snapshot.data() as User;
-    //       dispatch(
-    //         setCurrentUser({
-    //           uid: snapshot.id,
-    //           displayName: data.displayName,
-    //           email: data.email,
-    //         } as User)
-    //       );
-    //     });
-    //   } else {
-    //     dispatch(setCurrentUser(null));
-    //   }
-    // });
-    // return () => {
-    //   if (!!userRefUnsubscribe) {
-    //     userRefUnsubscribe();
-    //   }
-    //   authStateUnsubscribe();
-    // };
   }, []);
 
   return (

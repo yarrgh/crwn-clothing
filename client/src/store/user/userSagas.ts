@@ -64,9 +64,10 @@ function* isUserAuthenticated() {
 
 function* signInWithGoogle() {
   try {
-    const userAuth: UserCredential = yield auth.signInWithPopup(googleProvider);
+    const { user }: UserCredential = yield auth.signInWithPopup(googleProvider);
+    const userAuth = { uid: user?.uid, email: user?.email } as User;
 
-    yield getSnapshotFromUserAuth(userAuth.user as User);
+    yield getSnapshotFromUserAuth(userAuth);
   } catch (error) {
     yield put(userActions.signInFailure(error));
   }
@@ -76,12 +77,14 @@ function* signinWithEmail({
   payload: { email, password },
 }: PayloadAction<{ email: string; password: string }>) {
   try {
-    const userAuth: UserCredential = yield auth.signInWithEmailAndPassword(
+    const { user }: UserCredential = yield auth.signInWithEmailAndPassword(
       email,
       password
     );
 
-    yield getSnapshotFromUserAuth(userAuth.user as User);
+    const userAuth = { uid: user?.uid, email: user?.email } as User;
+
+    yield getSnapshotFromUserAuth(userAuth);
   } catch (error) {
     yield put(userActions.signInFailure(error));
   }
@@ -124,19 +127,16 @@ function* signUp({
   payload: { email, password, displayName },
 }: PayloadAction<SignUpCredentials>) {
   try {
-    const userAuth: UserCredential = yield auth.createUserWithEmailAndPassword(
+    const { user }: UserCredential = yield auth.createUserWithEmailAndPassword(
       email,
       password
     );
 
-    const user = {
-      uid: userAuth.user!.uid,
-      email: userAuth.user!.email!,
-    } as User;
+    const userAuth = { uid: user?.uid, email: user?.email } as User;
 
     yield put(
       userActions.signUpSuccess({
-        user,
+        user: userAuth,
         additionalData: { displayName },
       })
     );

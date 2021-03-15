@@ -1,13 +1,17 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { SignInCredentials } from "../../common/interfaces/user";
 import { userActions } from "../../store/user/userSlice";
 import { CustomButton } from "../custom-button/custom-button.component";
 import { FormInput } from "../form-input/form-input.component";
 import { Buttons, SignInContainer, Title } from "./sign-in.styles";
 
 export const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [credentials, setCredentials] = useState<SignInCredentials>({
+    email: "",
+    password: "",
+  });
+  const { email, password } = credentials;
   const dispatch = useDispatch();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -18,15 +22,7 @@ export const SignIn = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-
-    switch (name) {
-      case "email":
-        setEmail(value);
-        return;
-      case "password":
-        setPassword(value);
-        return;
-    }
+    setCredentials({ ...credentials, [name]: value });
   };
 
   return (

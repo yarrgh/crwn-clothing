@@ -10,7 +10,6 @@ export const ShopPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(fetchCollections());
     dispatch(shopActions.fetchCollections());
   }, []);
 
